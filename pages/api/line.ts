@@ -61,34 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 type: 'separator',
                 margin: 'lg'
               },
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'text',
-                    text: '✨ รวดเร็ว ง่ายดาย',
-                    size: 'sm',
-                    color: '#666666',
-                    margin: 'md'
-                  },
-                  {
-                    type: 'text',
-                    text: '📱 ใช้งานผ่านมือถือ',
-                    size: 'sm',
-                    color: '#666666',
-                    margin: 'xs'
-                  },
-                  {
-                    type: 'text',
-                    text: '⏰ ตลอด 24 ชั่วโมง',
-                    size: 'sm',
-                    color: '#666666',
-                    margin: 'xs'
-                  }
-                ],
-                margin: 'lg'
-              }
+            
             ],
             paddingAll: 'lg'
           },
