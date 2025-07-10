@@ -24,12 +24,15 @@ export default function BookingForm() {
 
   const handleConfirm = async () => {
     setIsSubmitting(true);
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setShowConfirmation(false);
-      alert("Booking confirmed successfully!");
-    }, 1000);
+    // Call backend to send LINE message
+    await fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bookingData),
+    });
+    setIsSubmitting(false);
+    setShowConfirmation(false);
+    window.close(); // or redirect to thank you page
   };
 
   const handleCancel = () => {
@@ -41,7 +44,7 @@ export default function BookingForm() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Boxing Studio</h1>
+          <h1 className="text-4xl font-bold text-white mb-2">Studio</h1>
           <p className="text-gray-400">Book your next training session</p>
         </div>
 
