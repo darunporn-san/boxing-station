@@ -24,7 +24,7 @@ export default function BookingForm() {
 
   const handleConfirm = async () => {
     setIsSubmitting(true);
-    // Call backend to send LINE message
+    // ส่งข้อมูลไป backend เพื่อแจ้งเตือน LINE
     await fetch('/api/notify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -32,7 +32,7 @@ export default function BookingForm() {
     });
     setIsSubmitting(false);
     setShowConfirmation(false);
-    window.close(); // or redirect to thank you page
+    window.close(); // พยายามปิดหน้าต่าง
   };
 
   const handleCancel = () => {
