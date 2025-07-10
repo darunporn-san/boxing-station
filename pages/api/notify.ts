@@ -7,7 +7,7 @@ const client = new Client({
 });
 
 // TODO: Replace with your actual admin LINE userId
-const ADMIN_USER_ID = 'YOUR_ADMIN_USER_ID';
+const ADMIN_USER_ID = 'Ubb98d54aff1fb808c5d2d300a40fbb6b';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {

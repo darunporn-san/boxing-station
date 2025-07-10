@@ -12,42 +12,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   req.on('data', chunk => body += chunk);
   req.on('end', async () => {
     const event = JSON.parse(body).events?.[0];
-    // if (event?.type === 'message' && event.message.text.toLowerCase().includes('จอง')) {
-    //   await lineClient.replyMessage(event.replyToken, {
-    //     type: 'flex',
-    //     altText: 'จองรอบเรียน',
-    //     contents: {
-    //       type: 'bubble',
-    //       body: {
-    //         type: 'box',
-    //         layout: 'vertical',
-    //         contents: [
-    //           {
-    //             type: 'text',
-    //             text: 'จองรอบเรียน',
-    //             weight: 'bold',
-    //             size: 'xl'
-    //           },
-    //           {
-    //             type: 'button',
-    //             style: 'primary',
-    //             action: {
-    //               type: 'uri',
-    //               label: 'จองตอนนี้',
-    //               uri: 'https://boxing-station.vercel.app'
-    //             }
-    //           }
-    //         ]
-    //       }
-    //     }
-    //   });
-    // }
-    if (event?.type === 'message') {
+    if (event?.type === 'message' && event.message.text.toLowerCase().includes('จอง')) {
       await lineClient.replyMessage(event.replyToken, {
-        type: 'text',
-        text: `Your userId is: ${event.source.userId}`
+        type: 'flex',
+        altText: 'จองรอบเรียน',
+        contents: {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: 'จองรอบเรียน',
+                weight: 'bold',
+                size: 'xl'
+              },
+              {
+                type: 'button',
+                style: 'primary',
+                action: {
+                  type: 'uri',
+                  label: 'จองตอนนี้',
+                  uri: 'https://boxing-station.vercel.app'
+                }
+              }
+            ]
+          }
+        }
       });
     }
+    
+    // if (event?.type === 'message') {
+    //   await lineClient.replyMessage(event.replyToken, {
+    //     type: 'text',
+    //     text: `Your userId is: ${event.source.userId}`
+    //   });
+    // }
     res.status(200).end();
   });
 }
