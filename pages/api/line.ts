@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 action: {
                   type: 'uri',
                   label: 'จองตอนนี้',
-                  uri: 'https://1234abcd.ngrok.io'
+                  uri: '  https://boxing-station.vercel.app'
                 }
               }
             ]
