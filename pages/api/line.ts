@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (event?.type === 'message' && event.message.text.toLowerCase().includes('จอง')) {
       await lineClient.replyMessage(event.replyToken, {
         type: 'flex',
-        altText: 'จองรอบเรียน',
+        altText: 'จองรอบ',
         contents: {
           type: 'bubble',
           body: {
@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             contents: [
               {
                 type: 'text',
-                text: 'จองรอบเรียน',
+                text: 'จองรอบ',
                 weight: 'bold',
                 size: 'xl'
               },
@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       });
     }
-    
+
     // if (event?.type === 'message') {
     //   await lineClient.replyMessage(event.replyToken, {
     //     type: 'text',
