@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { lineClient } from '../../utils/line';
+import { createAndSetDefaultRichMenu, RichMenuArea } from '../../utils/lineRichMenu';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -7,35 +7,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // สร้าง richmenu object
-    const richMenu = {
-      size: { width: 2500, height: 843 },
-      selected: true,
-      name: 'Reservation Menu',
-      chatBarText: 'เมนูจอง',
-      areas: [
-        {
-          bounds: { x: 0, y: 0, width: 2500, height: 843 },
-          action: {
-            type: 'uri' as const,
-            label: 'จองเลย',
-            uri: 'https://reservation-station.vercel.app/'
-          }
+    // กำหนดปุ่ม 2 ฝั่ง
+    const areas: RichMenuArea[] = [
+      {
+        bounds: { x: 0, y: 0, width: 1250, height: 843 },
+        action: {
+          type: 'uri',
+          label: 'จองคิว',
+          uri: 'https://reservation-station.vercel.app/'
         }
-      ]
-    };
+      },
+      {
+        bounds: { x: 1250, y: 0, width: 1250, height: 843 },
+        action: {
+          type: 'uri',
+          label: 'ดูตาราง',
+          uri: 'https://www.ofm.co.th/'
+        }
+      }
+    ];
 
-    // เรียก LINE API เพื่อสร้าง richmenu
-    const richMenuId = await lineClient.createRichMenu(richMenu);
-
-    // หมายเหตุ: ถ้ามีรูปภาพ สามารถอัปโหลดได้ด้วย lineClient.setRichMenuImage(richMenuId, ...)
-    // แต่กรณีนี้ไม่มีรูป จะข้ามขั้นตอนนี้
-
-    // ตั้ง richmenu เป็นค่า default ให้ user ทุกคน (optional)
-    // await lineClient.setDefaultRichMenu(richMenuId);
-
+    const richMenuId = await createAndSetDefaultRichMenu(areas, 'richmenu.png');
     return res.status(200).json({ richMenuId });
   } catch (error: any) {
-    return res.status(500).json({ message: error.message || 'Error creating richmenu' });
+    console.error('LINE API error:', error?.originalError?.response?.data || error);
+    return res.status(500).json({
+      message: error.message || 'Error creating richmenu',
+      details: error?.originalError?.response?.data || error
+    });
   }
 } 
